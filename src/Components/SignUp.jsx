@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Autocomplete, Button, IconButton, InputAdornment, TextField } from "@mui/material"
+import { Autocomplete, Button, CircularProgress, IconButton, InputAdornment, TextField } from "@mui/material"
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import PhoneInput from 'react-phone-input-2'
@@ -18,6 +18,7 @@ function SignUp({}) {
     const [showPassword, setShowPassword] = useState(false)
     const [isOtpSend, setIsOtpSend] = useState(false)
     const [isVerified, setIsVerified]= useState(false)
+    const [loading, setLoding] = useState(false)
     // const recaptcha = null;
     const initialValues ={
       name:'',
@@ -73,7 +74,6 @@ function SignUp({}) {
           }
           alert("user Registered Successfully")
           formik.resetForm()
-          formik.setFieldValue("mobile_number", '')
           setIsOtpSend(false)
           setIsVerified(false)
       } catch (error) {
@@ -141,7 +141,12 @@ window.confirmationResult.confirm(code).then((result) => {
 });
     }
 
-
+if(loading)
+  {
+    return <div className='h-screen w-screen flex justify-center items-center'>
+          <CircularProgress />
+    </div>
+  }
 
 
   return (
@@ -282,7 +287,7 @@ window.confirmationResult.confirm(code).then((result) => {
 
 
   
-     { !isVerified && <div id ="recaptcha-container" style={{width:"100%", marginTop:"10px", marginLeft:"80px"}} ></div>} 
+     { !isVerified && <div id ="recaptcha-container" style={{width:"100%", marginTop:"10px",}}  className='sm:mt-4'></div>} 
   
 
 
